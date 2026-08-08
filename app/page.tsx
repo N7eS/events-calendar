@@ -128,7 +128,7 @@ export default function Home() {
         
         {/* الهيدر */}
         <div style={{ textAlign: 'center', marginBottom: '35px', borderBottom: '1px solid rgba(244, 114, 182, 0.2)', paddingBottom: '20px' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f472b6', letterSpacing: '-0.5px' }}>رزنامة المناسبات</h1>
+          <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f472b6', letterSpacing: '-0.5px' }}>مناسبات البراعصه</h1>
           <p style={{ fontSize: '13px', color: '#f472b6', opacity: 0.7, marginTop: '5px' }}>تابع أحدث الأفراح والعشاء بكل سهولة</p>
         </div>
 
