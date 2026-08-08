@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface EventItem {
@@ -154,14 +155,14 @@ export default function Home() {
           )}
         </div>
 
-        {/* تم تحويل العنصر إلى زر حقيقي (button) لمنع فتح بحث جوجل وتحديد النص على الجوال */}
-        <button 
-          onClick={() => router.push('/add')}
-          style={{ width: '100%', backgroundColor: '#3b82f6', border: 'none', padding: '16px', borderRadius: '12px', textAlign: 'center', cursor: 'pointer', transition: '0.2s', boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)', display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center', justifyContent: 'center' }}
+        {/* استخدام Link من Next.js لضمان عمل الرابط بشكل مثالي على جميع الهواتف */}
+        <Link 
+          href="/add"
+          style={{ textDecoration: 'none', display: 'block', width: '100%', backgroundColor: '#3b82f6', padding: '16px', borderRadius: '12px', textAlign: 'center', transition: '0.2s', boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)', boxSizing: 'border-box' }}
         >
-          <span style={{ fontSize: '16px', fontWeight: '700', color: '#fff' }}>+ إضافة مناسبة جديدة</span>
-          <span style={{ fontSize: '12px', color: '#eff6ff' }}>اضغط هنا لإضافة موعد أو مناسبة جديدة للجدول</span>
-        </button>
+          <div style={{ fontSize: '16px', fontWeight: '700', color: '#fff', marginBottom: '4px' }}>+ إضافة مناسبة جديدة</div>
+          <div style={{ fontSize: '12px', color: '#eff6ff' }}>اضغط هنا لإضافة موعد أو مناسبة جديدة للجدول</div>
+        </Link>
 
       </div>
 
