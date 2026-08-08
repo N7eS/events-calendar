@@ -50,6 +50,11 @@ export default function Home() {
     }
   };
 
+  const handleLogout = () => {
+    setIsAdmin(false);
+    localStorage.removeItem('is_admin');
+  };
+
   const handleSaveEvent = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.date || !formData.location || !formData.phone) {
@@ -81,10 +86,38 @@ export default function Home() {
         {/* الهيدر */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
           <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>روزنامة المناسبات</h1>
-          <button onClick={() => setShowLoginModal(!showLoginModal)} style={{ padding: '6px 14px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', borderRadius: '8px', cursor: 'pointer', fontSize: '13px' }}>
+          <button 
+            onClick={() => {
+              if (isAdmin) {
+                handleLogout();
+              } else {
+                setShowLoginModal(!showLoginModal);
+              }
+            }} 
+            style={{ padding: '6px 14px', background: '#1e293b', border: '1px solid #334155', color: '#94a3b8', borderRadius: '8px', cursor: 'pointer', fontSize: '13px' }}
+          >
             {isAdmin ? 'خروج' : 'دخول'}
           </button>
         </div>
+
+        {/* نافذة تسجيل الدخول البسيطة عند الضغط على دخول */}
+        {showLoginModal && !isAdmin && (
+          <div style={{ backgroundColor: '#111827', padding: '20px', borderRadius: '12px', border: '1px solid #1f2937', marginBottom: '30px' }}>
+            <h3 style={{ fontSize: '16px', marginBottom: '12px', color: '#f8fafc' }}>تسجيل دخول المشرفين</h3>
+            <form onSubmit={handleAdminLogin} style={{ display: 'flex', gap: '10px' }}>
+              <input 
+                type="password" 
+                placeholder="كلمة المرور" 
+                value={adminPassword} 
+                onChange={(e) => setAdminPassword(e.target.value)} 
+                style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #374151', backgroundColor: '#090d16', color: '#fff', fontSize: '14px', outline: 'none' }} 
+              />
+              <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>
+                دخول
+              </button>
+            </form>
+          </div>
+        )}
 
         {/* الجدول (في الأعلى) */}
         <div style={{ backgroundColor: '#111827', padding: '24px', borderRadius: '16px', marginBottom: '40px', border: '1px solid #1f2937', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)' }}>
@@ -133,10 +166,31 @@ export default function Home() {
             </div>
             <div>
               <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>نوع المناسبة</label>
-              <select value={formData.type} onChange={(e) => setFormData({...formData, type: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #374151', backgroundColor: '#090d16', color: '#fff', fontSize: '14px', outline: 'none' }}>
-                <option value="فرح">فرح</option>
-                <option value="عشاء">عشاء</option>
-              </select>
+              {/* أزرار اختيار دائرية (Radio Buttons) جنب بعض */}
+              <div style={{ display: 'flex', gap: '24px', alignItems: 'center', height: '46px', padding: '0 12px', borderRadius: '10px', border: '1px solid #374151', backgroundColor: '#090d16' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
+                  <input 
+                    type="radio" 
+                    name="eventType" 
+                    value="فرح" 
+                    checked={formData.type === 'فرح'} 
+                    onChange={(e) => setFormData({...formData, type: e.target.value})} 
+                    style={{ accentColor: '#0284c7', width: '16px', height: '16px' }}
+                  />
+                  فرح
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
+                  <input 
+                    type="radio" 
+                    name="eventType" 
+                    value="عشاء" 
+                    checked={formData.type === 'عشاء'} 
+                    onChange={(e) => setFormData({...formData, type: e.target.value})} 
+                    style={{ accentColor: '#0284c7', width: '16px', height: '16px' }}
+                  />
+                  عشاء
+                </label>
+              </div>
             </div>
           </div>
 
