@@ -154,14 +154,14 @@ export default function Home() {
           )}
         </div>
 
-        {/* مربع إضافة مناسبة جديدة بتصميم عادي وثابت */}
-        <div 
+        {/* تم تحويل العنصر إلى زر حقيقي (button) لمنع فتح بحث جوجل وتحديد النص على الجوال */}
+        <button 
           onClick={() => router.push('/add')}
-          style={{ backgroundColor: '#3b82f6', padding: '16px', borderRadius: '12px', textAlign: 'center', cursor: 'pointer', transition: '0.2s', boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)', display: 'flex', flexDirection: 'column', gap: '4px' }}
+          style={{ width: '100%', backgroundColor: '#3b82f6', border: 'none', padding: '16px', borderRadius: '12px', textAlign: 'center', cursor: 'pointer', transition: '0.2s', boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)', display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'center', justifyContent: 'center' }}
         >
-          <div style={{ fontSize: '16px', fontWeight: '700', color: '#fff' }}>+ إضافة مناسبة جديدة</div>
-          <div style={{ fontSize: '12px', color: '#eff6ff' }}>اضغط هنا لإضافة موعد أو مناسبة جديدة للجدول</div>
-        </div>
+          <span style={{ fontSize: '16px', fontWeight: '700', color: '#fff' }}>+ إضافة مناسبة جديدة</span>
+          <span style={{ fontSize: '12px', color: '#eff6ff' }}>اضغط هنا لإضافة موعد أو مناسبة جديدة للجدول</span>
+        </button>
 
       </div>
 
