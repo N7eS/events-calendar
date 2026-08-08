@@ -128,7 +128,7 @@ export default function Home() {
         
         {/* الهيدر */}
         <div style={{ textAlign: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f8fafc', letterSpacing: '-0.5px' }}>مناسبات البراعةصة</h1>
+          <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f8fafc', letterSpacing: '-0.5px' }}>مناسبات البراعصه</h1>
           <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '5px' }}>جدول المواعيد والمناسبات الرسمية</p>
         </div>
 
