@@ -16,6 +16,14 @@ export const metadata: Metadata = {
   title: "مناسبات البراعصه",
   description: "موقع مناسبات البراعصه والمواعيد الرسمية",
   keywords: ["مناسبات البراعصه", "البراعصة", "براعصه", "براعصة", "موهه", "الموهه", "علوى", "افراح البراعصه", "موقع البراعصه", "مواعيد البراعصه"],
+  openGraph: {
+    title: "مناسبات البراعصه",
+    description: "موقع مناسبات البراعصه والمواعيد الرسمية",
+    url: "https://alburaisai.vercel.app",
+    siteName: "مناسبات البراعصه",
+    locale: "ar_SA",
+    type: "website",
+  },
   verification: {
     google: "6SGk1eZ-8nKfLVFVaQ-d8RnUdah63EwS8oj-iQLMXNI",
   },
