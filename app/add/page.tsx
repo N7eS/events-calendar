@@ -46,7 +46,6 @@ export default function AddEventPage() {
     });
     setLoading(false);
     
-    // العودة تلقائياً للصفحة الرئيسية بعد النجاح
     router.push('/');
   };
 
@@ -80,7 +79,12 @@ export default function AddEventPage() {
               </label>
             </div>
 
-            <input type="date" required value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', outline: 'none' }} />
+            {/* تم ضبط خصائص حقل التاريخ ليكون واضحاً ومتناسقاً مع باقي الحقول */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <label style={{ fontSize: '12px', color: '#94a3b8' }}>تاريخ المناسبة</label>
+              <input type="date" required value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none', colorScheme: 'dark' }} />
+            </div>
+
             <input type="text" placeholder="الموقع" required value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} />
             <input type="tel" placeholder="رقم الهاتف" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} />
           </div>
