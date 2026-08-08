@@ -150,7 +150,7 @@ export default function Home() {
         )}
 
         <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '16px', marginBottom: '35px', border: '1px solid #334155', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#f8fafc', marginBottom: '20px', borderRight: '4px solid #3b82f6', paddingRight: '10px' }}>المناسبات القادمة</h2>
+          <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#fff', marginBottom: '20px', borderRight: '4px solid #3b82f6', paddingRight: '10px' }}>المناسبات القادمة</h2>
           
           {fetching && events.length === 0 ? (
             <div style={{ padding: '30px', textAlign: 'center', color: '#94a3b8' }}>جاري التحميل...</div>
