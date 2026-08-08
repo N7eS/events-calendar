@@ -40,7 +40,7 @@ export default function Home() {
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminPassword === '12345') {
+    if (adminPassword === '1990') {
       setIsAdmin(true);
       localStorage.setItem('is_admin', 'true');
       setShowLoginModal(false);
@@ -85,7 +85,7 @@ export default function Home() {
         
         {/* الهيدر */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
-          <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>روزنامة المناسبات</h1>
+          <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>رزنامة المناسبات</h1>
           <button 
             onClick={() => {
               if (isAdmin) {
@@ -113,7 +113,7 @@ export default function Home() {
                 style={{ flex: 1, padding: '10px', borderRadius: '8px', border: '1px solid #374151', backgroundColor: '#090d16', color: '#fff', fontSize: '14px', outline: 'none' }} 
               />
               <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>
-                دخول
+                دخول الادمن
               </button>
             </form>
           </div>
