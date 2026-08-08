@@ -161,7 +161,7 @@ export default function Home() {
               {filteredEvents.map((ev) => (
                 <div key={ev.id} style={{ backgroundColor: '#0f172a', padding: '16px', borderRadius: '12px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
+                    <span style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#ffffff', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
                       {ev.type}
                     </span>
                     <span style={{ fontSize: '13px', color: '#94a3b8' }}>{ev.date}</span>
