@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface EventItem {
   id?: number | string;
@@ -11,24 +12,12 @@ interface EventItem {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [events, setEvents] = useState<EventItem[]>([]);
-  const [formData, setFormData] = useState({ type: 'فرح', name: '', date: '', location: '', phone: '' });
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [adminPassword, setAdminPassword] = useState('');
-
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [userCaptcha, setUserCaptcha] = useState('');
-
-  const generateCaptcha = () => {
-    setNum1(Math.floor(Math.random() * 10) + 1);
-    setNum2(Math.floor(Math.random() * 10) + 1);
-    setUserCaptcha('');
-  };
 
   const fetchEvents = async () => {
     try {
@@ -45,7 +34,6 @@ export default function Home() {
 
   useEffect(() => {
     fetchEvents();
-    generateCaptcha();
     if (localStorage.getItem('is_admin') === 'true') setIsAdmin(true);
   }, []);
 
@@ -66,47 +54,6 @@ export default function Home() {
     localStorage.removeItem('is_admin');
   };
 
-  const handleSaveEvent = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.date || !formData.location || !formData.phone) {
-      alert('يرجى تعبئة كافة البيانات');
-      return;
-    }
-
-    if (!isAdmin) {
-      if (parseInt(userCaptcha) !== num1 + num2) {
-        alert('رمز التحقق غير صحيح، يرجى إعادة المحاولة للتأكد من أنك لست روبوت');
-        generateCaptcha();
-        return;
-      }
-    }
-
-    setLoading(true);
-    const method = editingId ? 'PUT' : 'POST';
-    await fetch('/api/events', {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...formData, id: editingId || String(Date.now()) }),
-    });
-    setLoading(false);
-    setFormData({ type: 'فرح', name: '', date: '', location: '', phone: '' });
-    setEditingId(null);
-    generateCaptcha();
-    fetchEvents();
-  };
-
-  const handleEdit = (ev: EventItem) => {
-    setEditingId(String(ev.id));
-    setFormData({
-      type: ev.type,
-      name: ev.name,
-      date: ev.date,
-      location: ev.location,
-      phone: ev.phone || ''
-    });
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  };
-
   const handleDelete = async (id?: number | string) => {
     if (!id || !confirm('هل أنت متأكد من حذف هذه المناسبة؟')) return;
     await fetch('/api/events', {
@@ -117,7 +64,6 @@ export default function Home() {
     fetchEvents();
   };
 
-  // وظيفة مشاركة الموقع الكامل
   const handleShareWebsite = () => {
     const shareData = {
       title: 'مناسبات البراعصه',
@@ -141,7 +87,6 @@ export default function Home() {
     <div style={{ minHeight: '100vh', background: '#0f172a', color: '#e2e8f0', padding: '30px 16px', fontFamily: 'system-ui, sans-serif', direction: 'rtl', display: 'flex', flexDirection: 'column' }}>
       <div style={{ maxWidth: '750px', margin: '0 auto', flex: 1, width: '100%' }}>
         
-        {/* الهيدر مع زر مشاركة الموقع في المكان المطلوب تماماً */}
         <div style={{ textAlign: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f8fafc', letterSpacing: '-0.5px' }}>مناسبات البراعصه</h1>
           <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '5px', marginBottom: '15px' }}>جدول المواعيد والمناسبات</p>
@@ -199,7 +144,7 @@ export default function Home() {
                   </div>
                   {isAdmin && (
                     <div style={{ display: 'flex', gap: '8px', marginTop: '8px', paddingTop: '10px', borderTop: '1px solid #1e293b' }}>
-                      <button onClick={() => handleEdit(ev)} style={{ flex: 1, padding: '6px', backgroundColor: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>تعديل</button>
+                      <button onClick={() => router.push('/add')} style={{ flex: 1, padding: '6px', backgroundColor: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>تعديل</button>
                       <button onClick={() => handleDelete(ev.id)} style={{ flex: 1, padding: '6px', backgroundColor: '#ef4444', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>حذف</button>
                     </div>
                   )}
@@ -209,42 +154,15 @@ export default function Home() {
           )}
         </div>
 
-        <form onSubmit={handleSaveEvent} style={{ backgroundColor: '#1e293b', padding: '24px', borderRadius: '16px', border: '1px solid #334155', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)' }}>
-          <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#f8fafc', marginBottom: '20px', borderRight: '4px solid #3b82f6', paddingRight: '10px' }}>
-            {editingId ? 'تعديل المناسبة' : 'إضافة مناسبة جديدة'}
-          </h3>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px' }}>
-            <input type="text" placeholder="اسم صاحب المناسبة" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px' }} />
-            <div style={{ display: 'flex', gap: '24px', alignItems: 'center', height: '46px', padding: '0 12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
-                <input type="radio" name="eventType" value="فرح" checked={formData.type === 'فرح'} onChange={(e) => setFormData({...formData, type: e.target.value})} /> فرح
-              </label>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
-                <input type="radio" name="eventType" value="عشاء" checked={formData.type === 'عشاء'} onChange={(e) => setFormData({...formData, type: e.target.value})} /> عشاء
-              </label>
-            </div>
-            <input type="date" required value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-            <input type="text" placeholder="الموقع" required value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-            <input type="tel" placeholder="رقم الهاتف" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff' }} />
-          </div>
+        {/* مربع إضافة مناسبة جديدة البارز */}
+        <div 
+          onClick={() => router.push('/add')}
+          style={{ backgroundColor: '#1e293b', border: '2px dashed #3b82f6', padding: '20px', borderRadius: '16px', textAlign: 'center', cursor: 'pointer', transition: '0.2s', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)' }}
+        >
+          <div style={{ fontSize: '18px', fontWeight: '700', color: '#38bdf8', marginBottom: '4px' }}>+ إضافة مناسبة جديدة</div>
+          <div style={{ fontSize: '13px', color: '#94a3b8' }}>اضغط هنا لإضافة موعد أو مناسبة جديدة للجدول</div>
+        </div>
 
-          {!isAdmin && (
-            <div style={{ marginBottom: '20px', padding: '14px', backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #475569' }}>
-              <span style={{ fontSize: '13px', color: '#cbd5e1' }}>كم الناتج {num1} + {num2} = ؟</span>
-              <input type="number" required value={userCaptcha} onChange={(e) => setUserCaptcha(e.target.value)} style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #475569', backgroundColor: '#1e293b', color: '#fff', textAlign: 'center', marginTop: '8px' }} />
-            </div>
-          )}
-
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="submit" disabled={loading} style={{ flex: 1, padding: '14px', backgroundColor: '#3b82f6', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: '700', cursor: 'pointer' }}>
-              {loading ? 'جاري الحفظ...' : editingId ? 'تعديل' : 'إضافة'}
-            </button>
-            {editingId && (
-              <button type="button" onClick={() => { setEditingId(null); setFormData({ type: 'فرح', name: '', date: '', location: '', phone: '' }); }} style={{ padding: '14px 20px', backgroundColor: '#475569', color: '#fff', border: 'none', borderRadius: '10px' }}>إلغاء</button>
-            )}
-          </div>
-        </form>
       </div>
 
       <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '60px', padding: '10px 5px', borderTop: '1px solid #1e293b', fontSize: '12px' }}>
