@@ -161,14 +161,17 @@ export default function Home() {
               {filteredEvents.map((ev) => (
                 <div key={ev.id} style={{ backgroundColor: '#0f172a', padding: '16px', borderRadius: '12px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#ffffff', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
+                    <span style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
                       {ev.type}
                     </span>
                     <span style={{ fontSize: '13px', color: '#94a3b8' }}>{ev.date}</span>
                   </div>
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#f8fafc', marginTop: '4px' }}>
+                  
+                  {/* هنا تم تغيير لون الاسم إلى #619dfe */}
+                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#619dfe', marginTop: '4px' }}>
                     {ev.name}
                   </div>
+
                   <div style={{ fontSize: '14px', color: '#cbd5e1' }}>
                     📍 {ev.location}
                   </div>
@@ -224,7 +227,7 @@ export default function Home() {
 
       <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '60px', padding: '10px 5px', borderTop: '1px solid #1e293b', fontSize: '12px' }}>
         <div style={{ color: '#64748b' }}>
-          تم برمجة وتطوير الموقع بواسطة <a href="https://na9er.net" target="_blank" style={{ color: '#38bdf8', fontWeight: '700' }}>Tech idea</a>
+          Made By <a href="https://na9er.net" target="_blank" style={{ color: '#38bdf8', fontWeight: '700' }}>Tech idea</a>
         </div>
         <button onClick={() => isAdmin ? handleLogout() : setShowLoginModal(!showLoginModal)} style={{ background: 'transparent', border: 'none', color: '#475569', cursor: 'pointer', fontSize: '10px' }}>
           {isAdmin ? 'خروج المدير' : 'دخول المدير'}
