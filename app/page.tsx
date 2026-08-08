@@ -190,7 +190,7 @@ export default function Home() {
                     <span style={{ fontSize: '13px', color: '#94a3b8' }}>{ev.date}</span>
                   </div>
                   
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#619dfe', marginTop: '4px' }}>
+                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#38bdf8', marginTop: '4px' }}>
                     {ev.name}
                   </div>
 
