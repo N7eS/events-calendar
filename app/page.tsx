@@ -123,62 +123,62 @@ export default function Home() {
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #2b1220 0%, #150a14 50%, #0d060f 100%)', color: '#fce7f3', padding: '30px 16px', fontFamily: 'system-ui, sans-serif', direction: 'rtl', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: '#0f172a', color: '#e2e8f0', padding: '30px 16px', fontFamily: 'system-ui, sans-serif', direction: 'rtl', display: 'flex', flexDirection: 'column' }}>
       <div style={{ maxWidth: '750px', margin: '0 auto', flex: 1, width: '100%' }}>
         
         {/* الهيدر */}
-        <div style={{ textAlign: 'center', marginBottom: '35px', borderBottom: '1px solid rgba(244, 114, 182, 0.2)', paddingBottom: '20px' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f472b6', letterSpacing: '-0.5px' }}>مناسبات البراعصه</h1>
-          <p style={{ fontSize: '13px', color: '#f472b6', opacity: 0.7, marginTop: '5px' }}>تابع أحدث الأفراح والعشاء بكل سهولة</p>
+        <div style={{ textAlign: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f8fafc', letterSpacing: '-0.5px' }}>مناسبات البراعةصة</h1>
+          <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '5px' }}>جدول المواعيد والمناسبات الرسمية</p>
         </div>
 
         {/* نافذة تسجيل الدخول للمدير */}
         {showLoginModal && !isAdmin && (
-          <div style={{ backgroundColor: 'rgba(30, 10, 25, 0.95)', padding: '20px', borderRadius: '16px', border: '1px solid rgba(244, 114, 182, 0.3)', marginBottom: '30px', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)' }}>
-            <h3 style={{ fontSize: '16px', marginBottom: '12px', color: '#fce7f3' }}>تسجيل دخول المدير</h3>
+          <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '12px', border: '1px solid #334155', marginBottom: '30px', boxShadow: '0 10px 25px -5px rgba(0,0,0,0.3)' }}>
+            <h3 style={{ fontSize: '16px', marginBottom: '12px', color: '#f8fafc' }}>تسجيل دخول المدير</h3>
             <form onSubmit={handleAdminLogin} style={{ display: 'flex', gap: '10px' }}>
               <input 
                 type="password" 
                 placeholder="كلمة المرور" 
                 value={adminPassword} 
                 onChange={(e) => setAdminPassword(e.target.value)} 
-                style={{ flex: 1, padding: '10px 14px', borderRadius: '10px', border: '1px solid rgba(244, 114, 182, 0.4)', backgroundColor: '#12050e', color: '#fff', fontSize: '14px', outline: 'none' }} 
+                style={{ flex: 1, padding: '10px 14px', borderRadius: '8px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} 
               />
-              <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#db2777', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: '600', cursor: 'pointer' }}>
+              <button type="submit" style={{ padding: '10px 20px', backgroundColor: '#3b82f6', color: '#fff', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>
                 دخول
               </button>
             </form>
           </div>
         )}
 
-        {/* قائمة المناسبات (مصممة خصيصاً لتكون واضحة جداً على الهواتف) */}
-        <div style={{ backgroundColor: 'rgba(26, 11, 22, 0.85)', padding: '20px', borderRadius: '20px', marginBottom: '35px', border: '1px solid rgba(244, 114, 182, 0.2)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)' }}>
-          <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#fce7f3', marginBottom: '20px', borderRight: '4px solid #db2777', paddingRight: '10px' }}>المناسبات القادمة</h2>
+        {/* قائمة المناسبات */}
+        <div style={{ backgroundColor: '#1e293b', padding: '20px', borderRadius: '16px', marginBottom: '35px', border: '1px solid #334155', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)' }}>
+          <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#f8fafc', marginBottom: '20px', borderRight: '4px solid #3b82f6', paddingRight: '10px' }}>المناسبات القادمة</h2>
           
           {fetching && events.length === 0 ? (
-            <div style={{ padding: '30px', textAlign: 'center', color: '#f472b6', opacity: 0.7 }}>جاري التحميل...</div>
+            <div style={{ padding: '30px', textAlign: 'center', color: '#94a3b8' }}>جاري التحميل...</div>
           ) : filteredEvents.length === 0 ? (
-            <div style={{ padding: '30px', textAlign: 'center', color: '#f472b6', opacity: 0.7 }}>لا توجد مناسبات مضافة حالياً</div>
+            <div style={{ padding: '30px', textAlign: 'center', color: '#94a3b8' }}>لا توجد مناسبات مضافة حالياً</div>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {filteredEvents.map((ev) => (
-                <div key={ev.id} style={{ backgroundColor: '#150a14', padding: '16px', borderRadius: '14px', border: '1px solid rgba(244, 114, 182, 0.15)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div key={ev.id} style={{ backgroundColor: '#0f172a', padding: '16px', borderRadius: '12px', border: '1px solid #334155', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ backgroundColor: 'rgba(219, 39, 119, 0.15)', color: '#f472b6', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
+                    <span style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', padding: '4px 10px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
                       {ev.type}
                     </span>
-                    <span style={{ fontSize: '13px', color: '#f472b6', opacity: 0.9 }}>📅 {ev.date}</span>
+                    <span style={{ fontSize: '13px', color: '#94a3b8' }}>📅 {ev.date}</span>
                   </div>
-                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#fff', marginTop: '4px' }}>
+                  <div style={{ fontSize: '16px', fontWeight: '700', color: '#f8fafc', marginTop: '4px' }}>
                     {ev.name}
                   </div>
                   <div style={{ fontSize: '14px', color: '#cbd5e1', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     📍 {ev.location}
                   </div>
                   {isAdmin && (
-                    <div style={{ display: 'flex', gap: '8px', marginTop: '8px', paddingTop: '10px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                      <button onClick={() => handleEdit(ev)} style={{ flex: 1, padding: '6px', backgroundColor: '#db2777', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>تعديل</button>
-                      <button onClick={() => handleDelete(ev.id)} style={{ flex: 1, padding: '6px', backgroundColor: '#991b1b', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>حذف</button>
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '8px', paddingTop: '10px', borderTop: '1px solid #1e293b' }}>
+                      <button onClick={() => handleEdit(ev)} style={{ flex: 1, padding: '6px', backgroundColor: '#3b82f6', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>تعديل</button>
+                      <button onClick={() => handleDelete(ev.id)} style={{ flex: 1, padding: '6px', backgroundColor: '#ef4444', color: '#fff', border: 'none', borderRadius: '6px', fontSize: '12px', cursor: 'pointer', fontWeight: '600' }}>حذف</button>
                     </div>
                   )}
                 </div>
@@ -188,52 +188,52 @@ export default function Home() {
         </div>
 
         {/* نموذج الإضافة أو التعديل */}
-        <form onSubmit={handleSaveEvent} style={{ backgroundColor: 'rgba(26, 11, 22, 0.85)', padding: '24px', borderRadius: '20px', border: '1px solid rgba(244, 114, 182, 0.2)', backdropFilter: 'blur(10px)', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)' }}>
-          <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#fce7f3', marginBottom: '20px', borderRight: '4px solid #db2777', paddingRight: '10px' }}>
+        <form onSubmit={handleSaveEvent} style={{ backgroundColor: '#1e293b', padding: '24px', borderRadius: '16px', border: '1px solid #334155', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#f8fafc', marginBottom: '20px', borderRight: '4px solid #3b82f6', paddingRight: '10px' }}>
             {editingId ? 'تعديل المناسبة' : 'إضافة مناسبة جديدة'}
           </h3>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '16px' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#f472b6', marginBottom: '8px' }}>اسم صاحب المناسبة</label>
-              <input type="text" placeholder="الاسم الثلاثي" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '12px', border: '1px solid rgba(244, 114, 182, 0.3)', backgroundColor: '#12050e', color: '#fff', fontSize: '14px', outline: 'none' }} />
+              <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>اسم صاحب المناسبة</label>
+              <input type="text" placeholder="الاسم الثلاثي" required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#f472b6', marginBottom: '8px' }}>نوع المناسبة</label>
-              <div style={{ display: 'flex', gap: '24px', alignItems: 'center', height: '48px', padding: '0 14px', borderRadius: '12px', border: '1px solid rgba(244, 114, 182, 0.3)', backgroundColor: '#12050e' }}>
+              <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>نوع المناسبة</label>
+              <div style={{ display: 'flex', gap: '24px', alignItems: 'center', height: '46px', padding: '0 12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
-                  <input type="radio" name="eventType" value="فرح" checked={formData.type === 'فرح'} onChange={(e) => setFormData({...formData, type: e.target.value})} style={{ accentColor: '#db2777', width: '16px', height: '16px' }} />
+                  <input type="radio" name="eventType" value="فرح" checked={formData.type === 'فرح'} onChange={(e) => setFormData({...formData, type: e.target.value})} style={{ accentColor: '#3b82f6', width: '16px', height: '16px' }} />
                   فرح
                 </label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px', color: '#fff' }}>
-                  <input type="radio" name="eventType" value="عشاء" checked={formData.type === 'عشاء'} onChange={(e) => setFormData({...formData, type: e.target.value})} style={{ accentColor: '#db2777', width: '16px', height: '16px' }} />
+                  <input type="radio" name="eventType" value="عشاء" checked={formData.type === 'عشاء'} onChange={(e) => setFormData({...formData, type: e.target.value})} style={{ accentColor: '#3b82f6', width: '16px', height: '16px' }} />
                   عشاء
                 </label>
               </div>
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#f472b6', marginBottom: '8px' }}>التاريخ</label>
-              <input type="date" required value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '12px', border: '1px solid rgba(244, 114, 182, 0.3)', backgroundColor: '#12050e', color: '#fff', fontSize: '14px', outline: 'none' }} />
+              <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>التاريخ</label>
+              <input type="date" required value={formData.date} onChange={(e) => setFormData({...formData, date: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#f472b6', marginBottom: '8px' }}>الموقع</label>
-              <input type="text" placeholder="اسم الصالة أو المكان" required value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '12px', border: '1px solid rgba(244, 114, 182, 0.3)', backgroundColor: '#12050e', color: '#fff', fontSize: '14px', outline: 'none' }} />
+              <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>الموقع</label>
+              <input type="text" placeholder="اسم الصالة أو المكان" required value={formData.location} onChange={(e) => setFormData({...formData, location: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '13px', color: '#f472b6', marginBottom: '8px' }}>رقم الهاتف</label>
-              <input type="tel" placeholder="965XXXXXXXX" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '12px', border: '1px solid rgba(244, 114, 182, 0.3)', backgroundColor: '#12050e', color: '#fff', fontSize: '14px', outline: 'none' }} />
+              <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>رقم الهاتف</label>
+              <input type="tel" placeholder="965XXXXXXXX" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #475569', backgroundColor: '#0f172a', color: '#fff', fontSize: '14px', outline: 'none' }} />
             </div>
           </div>
 
           {/* خانة التحقق للزوار */}
           {!isAdmin && (
-            <div style={{ marginBottom: '20px', padding: '14px', backgroundColor: '#12050e', borderRadius: '12px', border: '1px solid rgba(244, 114, 182, 0.3)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ marginBottom: '20px', padding: '14px', backgroundColor: '#0f172a', borderRadius: '10px', border: '1px solid #475569', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               <span style={{ fontSize: '13px', color: '#cbd5e1' }}>
-                أثبت أنك لست روبوت: كم الناتج <strong style={{ color: '#f472b6' }}>{num1} + {num2}</strong> = ؟
+                أثبت أنك لست روبوت: كم الناتج <strong style={{ color: '#60a5fa' }}>{num1} + {num2}</strong> = ؟
               </span>
               <input 
                 type="number" 
@@ -241,17 +241,17 @@ export default function Home() {
                 placeholder="أدخل الناتج هنا" 
                 value={userCaptcha} 
                 onChange={(e) => setUserCaptcha(e.target.value)} 
-                style={{ width: '100%', padding: '10px', borderRadius: '10px', border: '1px solid rgba(244, 114, 182, 0.3)', backgroundColor: '#1a0b16', color: '#fff', fontSize: '14px', textAlign: 'center', outline: 'none' }} 
+                style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #475569', backgroundColor: '#1e293b', color: '#fff', fontSize: '14px', textAlign: 'center', outline: 'none' }} 
               />
             </div>
           )}
 
           <div style={{ display: 'flex', gap: '10px' }}>
-            <button type="submit" disabled={loading} style={{ flex: 1, padding: '14px', backgroundColor: '#db2777', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: '700', fontSize: '15px', cursor: 'pointer', boxShadow: '0 4px 15px rgba(219, 39, 119, 0.4)' }}>
+            <button type="submit" disabled={loading} style={{ flex: 1, padding: '14px', backgroundColor: '#3b82f6', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: '700', fontSize: '15px', cursor: 'pointer' }}>
               {loading ? 'جاري الحفظ...' : editingId ? 'تعديل المناسبة' : 'إضافة المناسبة'}
             </button>
             {editingId && (
-              <button type="button" onClick={() => { setEditingId(null); setFormData({ type: 'فرح', name: '', date: '', location: '', phone: '' }); }} style={{ padding: '14px 20px', backgroundColor: '#4a1d33', color: '#fff', border: 'none', borderRadius: '12px', fontWeight: '700', fontSize: '15px', cursor: 'pointer' }}>
+              <button type="button" onClick={() => { setEditingId(null); setFormData({ type: 'فرح', name: '', date: '', location: '', phone: '' }); }} style={{ padding: '14px 20px', backgroundColor: '#475569', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: '700', fontSize: '15px', cursor: 'pointer' }}>
                 إلغاء
               </button>
             )}
@@ -259,11 +259,11 @@ export default function Home() {
         </form>
       </div>
 
-      {/* الفوتر مع زر دخول المدير الصغير في أقصى الزاوية */}
-      <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '60px', padding: '10px 5px', borderTop: '1px solid rgba(244, 114, 182, 0.15)', fontSize: '12px' }}>
-        <div style={{ color: '#f472b6', opacity: 0.6 }}>
+      {/* الفوتر */}
+      <footer style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '60px', padding: '10px 5px', borderTop: '1px solid #1e293b', fontSize: '12px' }}>
+        <div style={{ color: '#64748b' }}>
           تم برمجة وتطوير الموقع بواسطة 
-          <a href="https://na9er.net" target="_blank" rel="noopener noreferrer" style={{ color: '#f472b6', textDecoration: 'none', fontWeight: '700', marginRight: '4px' }}>
+          <a href="https://na9er.net" target="_blank" rel="noopener noreferrer" style={{ color: '#38bdf8', textDecoration: 'none', fontWeight: '700', marginRight: '4px' }}>
             Tech idea
           </a>
         </div>
@@ -276,7 +276,7 @@ export default function Home() {
               setShowLoginModal(!showLoginModal);
             }
           }} 
-          style={{ background: 'transparent', border: 'none', color: '#f472b6', opacity: 0.4, cursor: 'pointer', fontSize: '11px', padding: '4px' }}
+          style={{ background: 'transparent', border: 'none', color: '#475569', cursor: 'pointer', fontSize: '10px', padding: '4px' }}
         >
           {isAdmin ? 'خروج المدير' : 'دخول المدير'}
         </button>
