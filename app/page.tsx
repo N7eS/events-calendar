@@ -117,6 +117,21 @@ export default function Home() {
     fetchEvents();
   };
 
+  // وظيفة مشاركة الموقع الكامل
+  const handleShareWebsite = () => {
+    const shareData = {
+      title: 'مناسبات البراعصه',
+      text: 'تفضل بزيارة جدول مناسبات البراعصه:',
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('تم نسخ رابط الموقع للحافظة');
+    }
+  };
+
   const now = new Date().getTime();
   const filteredEvents = events
     .filter((ev) => ev.date && new Date(ev.date).getTime() >= now - 7 * 24 * 60 * 60 * 1000)
@@ -126,9 +141,17 @@ export default function Home() {
     <div style={{ minHeight: '100vh', background: '#0f172a', color: '#e2e8f0', padding: '30px 16px', fontFamily: 'system-ui, sans-serif', direction: 'rtl', display: 'flex', flexDirection: 'column' }}>
       <div style={{ maxWidth: '750px', margin: '0 auto', flex: 1, width: '100%' }}>
         
+        {/* الهيدر مع زر مشاركة الموقع في المكان المطلوب تماماً */}
         <div style={{ textAlign: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: '800', color: '#f8fafc', letterSpacing: '-0.5px' }}>مناسبات البراعصه</h1>
-          <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '5px' }}>جدول المواعيد والمناسبات</p>
+          <p style={{ fontSize: '13px', color: '#94a3b8', marginTop: '5px', marginBottom: '15px' }}>جدول المواعيد والمناسبات</p>
+          
+          <button 
+            onClick={handleShareWebsite} 
+            style={{ backgroundColor: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)', padding: '6px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' }}
+          >
+            مشاركة الموقع 🔗
+          </button>
         </div>
 
         {showLoginModal && !isAdmin && (
@@ -167,7 +190,6 @@ export default function Home() {
                     <span style={{ fontSize: '13px', color: '#94a3b8' }}>{ev.date}</span>
                   </div>
                   
-                  {/* هنا تم تغيير لون الاسم إلى #619dfe */}
                   <div style={{ fontSize: '16px', fontWeight: '700', color: '#619dfe', marginTop: '4px' }}>
                     {ev.name}
                   </div>
