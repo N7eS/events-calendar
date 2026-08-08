@@ -20,6 +20,17 @@ export default function Home() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [adminPassword, setAdminPassword] = useState('');
 
+  // متغيرات كود التحقق للزوار
+  const [num1, setNum1] = useState(0);
+  const [num2, setNum2] = useState(0);
+  const [userCaptcha, setUserCaptcha] = useState('');
+
+  const generateCaptcha = () => {
+    setNum1(Math.floor(Math.random() * 10) + 1);
+    setNum2(Math.floor(Math.random() * 10) + 1);
+    setUserCaptcha('');
+  };
+
   const fetchEvents = async () => {
     try {
       setFetching(true);
@@ -35,6 +46,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchEvents();
+    generateCaptcha();
     if (localStorage.getItem('is_admin') === 'true') setIsAdmin(true);
   }, []);
 
@@ -61,6 +73,16 @@ export default function Home() {
       alert('يرجى تعبئة كافة البيانات');
       return;
     }
+
+    // التحقق من كود التحقق إذا لم يكن المدير مسجلاً
+    if (!isAdmin) {
+      if (parseInt(userCaptcha) !== num1 + num2) {
+        alert('رمز التحقق غير صحيح، يرجى إعادة المحاولة للتأكد من أنك لست روبوت');
+        generateCaptcha();
+        return;
+      }
+    }
+
     setLoading(true);
     const method = editingId ? 'PUT' : 'POST';
     await fetch('/api/events', {
@@ -71,6 +93,7 @@ export default function Home() {
     setLoading(false);
     setFormData({ type: 'فرح', name: '', date: '', location: '', phone: '' });
     setEditingId(null);
+    generateCaptcha();
     fetchEvents();
   };
 
@@ -107,7 +130,7 @@ export default function Home() {
         
         {/* الهيدر */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '35px', borderBottom: '1px solid #1e293b', paddingBottom: '20px' }}>
-          <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>روزنامة المناسبات</h1>
+          <h1 style={{ fontSize: '26px', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>رزنامة المناسبات</h1>
           <button 
             onClick={() => {
               if (isAdmin) {
@@ -221,10 +244,27 @@ export default function Home() {
             </div>
           </div>
 
-          <div style={{ marginBottom: '24px' }}>
+          <div style={{ marginBottom: '20px' }}>
             <label style={{ display: 'block', fontSize: '13px', color: '#94a3b8', marginBottom: '8px' }}>رقم الهاتف</label>
             <input type="tel" placeholder="965XXXXXXXX" required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid #374151', backgroundColor: '#090d16', color: '#fff', fontSize: '14px', outline: 'none' }} />
           </div>
+
+          {/* خانة التحقق للزوار فقط (تختفي إذا كان المدير مسجلاً) */}
+          {!isAdmin && (
+            <div style={{ marginBottom: '24px', padding: '14px', backgroundColor: '#090d16', borderRadius: '10px', border: '1px solid #374151', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <span style={{ fontSize: '14px', color: '#cbd5e1' }}>
+                أثبت أنك لست روبوت: كم الناتج <strong style={{ color: '#38bdf8' }}>{num1} + {num2}</strong> = ؟
+              </span>
+              <input 
+                type="number" 
+                required 
+                placeholder="الناتج" 
+                value={userCaptcha} 
+                onChange={(e) => setUserCaptcha(e.target.value)} 
+                style={{ width: '90px', padding: '10px', borderRadius: '8px', border: '1px solid #374151', backgroundColor: '#111827', color: '#fff', fontSize: '14px', textAlign: 'center', outline: 'none' }} 
+              />
+            </div>
+          )}
 
           <div style={{ display: 'flex', gap: '10px' }}>
             <button type="submit" disabled={loading} style={{ flex: 1, padding: '14px', backgroundColor: '#0284c7', color: '#fff', border: 'none', borderRadius: '10px', fontWeight: '700', fontSize: '15px', cursor: 'pointer' }}>
