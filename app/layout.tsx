@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "مناسبات البراعصه",
-  description: "موقع مناسبات وعزاء وافراح مطير البراعصه والمواعيد الرسمية",
+  description: "موقع مناسبات البراعصه والمواعيد الرسمية",
   keywords: ["مناسبات البراعصه", "البراعصة", "براعصه", "براعصة", "موهه", "الموهه", "علوى", "افراح البراعصه", "موقع البراعصه", "مواعيد البراعصه"],
   verification: {
     google: "6SGk1eZ-8nKfLVFVaQ-d8RnUdah63EwS8oj-iQLMXNI",
